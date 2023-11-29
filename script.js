@@ -4,15 +4,15 @@ const clearBtn = document.querySelector("#clear-button");
 let gridSize = 16;
 let mousedown = 0;
 
-container.addEventListener('mousedown', () => {
-    mousedown += 1;
-});
-
-container.addEventListener('mouseup', () => {
+document.body.addEventListener('drag', () => {
     mousedown = 0;
 });
 
-container.addEventListener('mouseleave', () => {
+document.body.addEventListener('mousedown', () => {
+    mousedown = 1;
+});
+
+document.body.addEventListener('mouseup', () => {
     mousedown = 0;
 });
 
@@ -22,6 +22,7 @@ for (let i = 1; i <= 256; i++) {
     insideDiv.className = "single-block";
     container.appendChild(insideDiv);
 }
+
 selectBlocks();
 
 sizeBtn.addEventListener('click', () => {
@@ -35,6 +36,9 @@ sizeBtn.addEventListener('click', () => {
 });
 
 clearBtn.addEventListener('click', () => {
+    if (gridSize == 0 || isNaN(gridSize)) {
+        gridSize = 16;
+    }
     createBlocksInSize(gridSize);
     selectBlocks();
 });
@@ -42,6 +46,14 @@ clearBtn.addEventListener('click', () => {
 function selectBlocks() {
     const singleBlocks = document.querySelectorAll(".single-block");
     singleBlocks.forEach((block) => {
+        block.addEventListener('mousedown', () => {
+            block.style.backgroundColor = "black";
+        });
+
+        block.addEventListener('click', () => {
+            block.style.backgroundColor = "black";
+        });
+        
         block.addEventListener('mouseenter', () => {
             if (mousedown) {
                 block.style.backgroundColor = "black";
