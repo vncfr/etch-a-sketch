@@ -1,5 +1,20 @@
 const container = document.querySelector("#container");
-const btn = document.querySelector("#top-button");
+const sizeBtn = document.querySelector("#size-button");
+const clearBtn = document.querySelector("#clear-button");
+let gridSize = 16;
+let mousedown = 0;
+
+container.addEventListener('mousedown', () => {
+    mousedown += 1;
+});
+
+container.addEventListener('mouseup', () => {
+    mousedown = 0;
+});
+
+container.addEventListener('mouseleave', () => {
+    mousedown = 0;
+});
 
 for (let i = 1; i <= 256; i++) {
     const insideDiv = document.createElement("div");
@@ -7,20 +22,48 @@ for (let i = 1; i <= 256; i++) {
     insideDiv.className = "single-block";
     container.appendChild(insideDiv);
 }
+selectBlocks();
 
-btn.addEventListener('click', () => {
-    let gridSize = prompt("Select grid size:");
+sizeBtn.addEventListener('click', () => {
+    gridSize = prompt("Select grid size:");
     if (gridSize == "" || isNaN(gridSize) || gridSize < 1 || gridSize > 100) {
         alert("Please insert a number between 1 and 100.");
     } else {
-        container.innerHTML = "";
-        for (let i = 1; i <= gridSize * gridSize; i++) {
-            const insideDiv = document.createElement("div");
-            insideDiv.style.boxSizing = "border-box";
-            insideDiv.className = "single-block";
-            container.appendChild(insideDiv);
-            insideDiv.style.width = `calc(550px/${gridSize})`;
-            insideDiv.style.height = `calc(550px/${gridSize})`;
-        }
+        createBlocksInSize(gridSize);
     }
+    selectBlocks();
 });
+
+clearBtn.addEventListener('click', () => {
+    createBlocksInSize(gridSize);
+    selectBlocks();
+});
+
+function selectBlocks() {
+    const singleBlocks = document.querySelectorAll(".single-block");
+    singleBlocks.forEach((block) => {
+        block.addEventListener('mouseenter', () => {
+            if (mousedown) {
+                block.style.backgroundColor = "black";
+            }
+        });
+        block.addEventListener('mouseover', () => {
+            if (mousedown) {
+                block.style.backgroundColor = "black";
+            }
+        })
+    });
+};
+
+function createBlocksInSize(gridSize) {
+    container.innerHTML = "";
+    for (let i = 1; i <= gridSize * gridSize; i++) {
+        const insideDiv = document.createElement("div");
+        insideDiv.style.boxSizing = "border-box";
+        insideDiv.className = "single-block";
+        console.log(insideDiv.className);
+        container.appendChild(insideDiv);
+        insideDiv.style.width = `calc(550px/${gridSize})`;
+        insideDiv.style.height = `calc(550px/${gridSize})`;
+    }
+};

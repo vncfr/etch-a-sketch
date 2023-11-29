@@ -9,8 +9,10 @@ body {
     padding: 20px;
 }
 
-#top-button {
+#size-button,
+#clear-button {
     padding: 10px;
+    margin: 10px;
 }
 
 #container {
