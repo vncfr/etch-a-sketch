@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    background-color: grey;
 }
 
 #top-div {
@@ -13,22 +14,23 @@ body {
 }
 
 #container {
+    background-color: white;
     display: flex;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     justify-content: center;
-    background-color: aqua;
     margin: auto;
-    height: 45vw;
-    width: 45vw;
+    height: 550px;
+    width: 550px;
+    box-sizing: border-box;
 }
 
 .single-block {
     box-sizing: border-box;
-    width: calc(45vw / 16);
-    height: calc(45vw / 16);
-    border: 1px solid black;
+    width: calc(550px / 16);
+    height: calc(550px / 16);
+    /* border: 1px solid black; */
 }
 
 .single-block:hover {
-    background-color: red;
+    background-color: black;
 }
