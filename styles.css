@@ -23,14 +23,11 @@ body {
     margin: auto;
     height: 550px;
     width: 550px;
-    box-sizing: border-box;
 }
 
 .single-block {
-    box-sizing: border-box;
     width: calc(550px / 16);
     height: calc(550px / 16);
-    /* border: 1px solid black; */
 }
 
 .single-block:hover {
