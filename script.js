@@ -1,12 +1,8 @@
 const container = document.querySelector("#container");
 const sizeBtn = document.querySelector("#size-button");
 const clearBtn = document.querySelector("#clear-button");
-let gridSize = 16;
+let sizeOfGrid = 16;
 let mousedown = 0;
-
-document.body.addEventListener('drag', () => {
-    mousedown = 0;
-});
 
 document.body.addEventListener('mousedown', () => {
     mousedown = 1;
@@ -30,15 +26,14 @@ sizeBtn.addEventListener('click', () => {
     if (gridSize == "" || isNaN(gridSize) || gridSize < 1 || gridSize > 100) {
         alert("Please insert a number between 1 and 100.");
     } else {
+        sizeOfGrid = gridSize;
         createBlocksInSize(gridSize);
     }
     selectBlocks();
 });
 
 clearBtn.addEventListener('click', () => {
-    if (gridSize == 0 || isNaN(gridSize)) {
-        gridSize = 16;
-    }
+    gridSize = sizeOfGrid;
     createBlocksInSize(gridSize);
     selectBlocks();
 });
@@ -46,6 +41,9 @@ clearBtn.addEventListener('click', () => {
 function selectBlocks() {
     const singleBlocks = document.querySelectorAll(".single-block");
     singleBlocks.forEach((block) => {
+
+        block.setAttribute('ondragstart', 'dragstart(event)'); //prevent the mouse drag action
+
         block.addEventListener('mousedown', () => {
             block.style.backgroundColor = "black";
         });
@@ -57,13 +55,9 @@ function selectBlocks() {
         block.addEventListener('mouseenter', () => {
             if (mousedown) {
                 block.style.backgroundColor = "black";
+                mousedown = 1;
             }
         });
-        block.addEventListener('mouseover', () => {
-            if (mousedown) {
-                block.style.backgroundColor = "black";
-            }
-        })
     });
 };
 
@@ -78,4 +72,8 @@ function createBlocksInSize(gridSize) {
         insideDiv.style.width = `calc(550px/${gridSize})`;
         insideDiv.style.height = `calc(550px/${gridSize})`;
     }
+};
+
+function dragstart (event) {
+    event.preventDefault()
 };
