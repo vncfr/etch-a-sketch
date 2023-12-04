@@ -1,6 +1,7 @@
 const container = document.querySelector("#container");
 const sizeBtn = document.querySelector("#size-button");
 const clearBtn = document.querySelector("#clear-button");
+const eraseBtn = document.querySelector("#erase-button");
 let sizeOfGrid = 16;
 let mousedown = 0;
 
@@ -55,7 +56,6 @@ function selectBlocks() {
         block.addEventListener('mouseenter', () => {
             if (mousedown) {
                 block.style.backgroundColor = "black";
-                mousedown = 1;
             }
         });
     });
