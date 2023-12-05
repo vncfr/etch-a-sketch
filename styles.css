@@ -9,11 +9,15 @@ body {
     padding: 20px;
 }
 
-#size-button,
-#clear-button,
-#erase-button {
+button {
     padding: 10px;
     margin: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#erase-button {
+    background-color: lightcoral;
 }
 
 #container {
@@ -33,4 +37,8 @@ body {
 
 .single-block:hover {
     background-color: black;
+}
+
+.painted:hover {
+    background-color: gray;
 }

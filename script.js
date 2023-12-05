@@ -2,8 +2,10 @@ const container = document.querySelector("#container");
 const sizeBtn = document.querySelector("#size-button");
 const clearBtn = document.querySelector("#clear-button");
 const eraseBtn = document.querySelector("#erase-button");
+
 let sizeOfGrid = 16;
 let mousedown = 0;
+let eraseMode = false;
 
 document.body.addEventListener('mousedown', () => {
     mousedown = 1;
@@ -13,6 +15,14 @@ document.body.addEventListener('mouseup', () => {
     mousedown = 0;
 });
 
+eraseBtn.addEventListener('click', () => {
+    if (eraseMode) {
+        setEraseOff();
+    } else {
+        setEraseOn();
+    }
+});
+
 for (let i = 1; i <= 256; i++) {
     const insideDiv = document.createElement("div");
     insideDiv.style.boxSizing = "border-box";
@@ -20,7 +30,7 @@ for (let i = 1; i <= 256; i++) {
     container.appendChild(insideDiv);
 }
 
-selectBlocks();
+toggleBlocks();
 
 sizeBtn.addEventListener('click', () => {
     gridSize = prompt("Select grid size:");
@@ -29,45 +39,62 @@ sizeBtn.addEventListener('click', () => {
     } else {
         sizeOfGrid = gridSize;
         createBlocksInSize(gridSize);
+        setEraseOff();
     }
-    selectBlocks();
+    toggleBlocks();
 });
 
 clearBtn.addEventListener('click', () => {
+    eraseMode = false;
     gridSize = sizeOfGrid;
     createBlocksInSize(gridSize);
-    selectBlocks();
+    toggleBlocks();
+    setEraseOff();
 });
 
-function selectBlocks() {
+function toggleBlocks() {
     const singleBlocks = document.querySelectorAll(".single-block");
+
     singleBlocks.forEach((block) => {
 
         block.setAttribute('ondragstart', 'dragstart(event)'); //prevent the mouse drag action
 
         block.addEventListener('mousedown', () => {
-            block.style.backgroundColor = "black";
+            if (eraseMode) {
+                block.style.backgroundColor = "";
+            } else {
+                block.style.backgroundColor = "black";
+            }
         });
 
         block.addEventListener('click', () => {
-            block.style.backgroundColor = "black";
+            if (eraseMode) {
+                block.style.backgroundColor = "";
+            } else {
+                block.style.backgroundColor = "black";
+            }
         });
         
         block.addEventListener('mouseenter', () => {
             if (mousedown) {
-                block.style.backgroundColor = "black";
+                if (eraseMode) {
+                    block.style.backgroundColor = "";
+                } else {
+                    block.style.backgroundColor = "black";
+
+                }
             }
         });
     });
 };
 
 function createBlocksInSize(gridSize) {
+    eraseMode = false;
     container.innerHTML = "";
     for (let i = 1; i <= gridSize * gridSize; i++) {
         const insideDiv = document.createElement("div");
         insideDiv.style.boxSizing = "border-box";
         insideDiv.className = "single-block";
-        console.log(insideDiv.className);
         container.appendChild(insideDiv);
         insideDiv.style.width = `calc(550px/${gridSize})`;
         insideDiv.style.height = `calc(550px/${gridSize})`;
@@ -77,3 +104,15 @@ function createBlocksInSize(gridSize) {
 function dragstart (event) {
     event.preventDefault()
 };
+
+function setEraseOn() {
+    eraseMode = true;
+    eraseBtn.textContent = "Erase Mode: On";
+    eraseBtn.style.backgroundColor = "palegreen";
+}
+
+function setEraseOff() {
+    eraseMode = false;
+    eraseBtn.textContent = "Erase Mode: Off";
+    eraseBtn.style.backgroundColor = "lightcoral";
+}
