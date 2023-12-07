@@ -39,6 +39,6 @@ button {
     background-color: black;
 }
 
-.painted:hover {
+.single-block.erase:hover {
     background-color: gray;
 }

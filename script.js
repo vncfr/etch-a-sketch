@@ -28,9 +28,8 @@ for (let i = 1; i <= 256; i++) {
     insideDiv.style.boxSizing = "border-box";
     insideDiv.className = "single-block";
     container.appendChild(insideDiv);
+    toggleBlocks();
 }
-
-toggleBlocks();
 
 sizeBtn.addEventListener('click', () => {
     gridSize = prompt("Select grid size:");
@@ -59,32 +58,38 @@ function toggleBlocks() {
 
         block.setAttribute('ondragstart', 'dragstart(event)'); //prevent the mouse drag action
 
-        block.addEventListener('mousedown', () => {
-            if (eraseMode) {
-                block.style.backgroundColor = "";
-            } else {
-                block.style.backgroundColor = "black";
-            }
-        });
+        if (eraseMode) {
+            block.className = "single-block erase";
 
-        block.addEventListener('click', () => {
-            if (eraseMode) {
+            block.addEventListener('mousedown', () => {
                 block.style.backgroundColor = "";
-            } else {
-                block.style.backgroundColor = "black";
-            }
-        });
-        
-        block.addEventListener('mouseenter', () => {
-            if (mousedown) {
-                if (eraseMode) {
+            });
+
+            block.addEventListener('click', () => {
+                block.style.backgroundColor = "";
+            });
+
+            block.addEventListener('mouseenter', () => {
+                if (mousedown) {
                     block.style.backgroundColor = "";
-                } else {
-                    block.style.backgroundColor = "black";
-
                 }
-            }
-        });
+            });
+
+        } else {
+            block.addEventListener('mousedown', () => {
+                block.style.backgroundColor = "black";
+            });
+    
+            block.addEventListener('click', () => {
+                block.style.backgroundColor = "black";
+            });
+            
+            block.addEventListener('mouseenter', () => {
+                if (mousedown) {
+                        block.style.backgroundColor = "black";
+                }
+            });
+        }
     });
 };
 
@@ -109,10 +114,12 @@ function setEraseOn() {
     eraseMode = true;
     eraseBtn.textContent = "Erase Mode: On";
     eraseBtn.style.backgroundColor = "palegreen";
+    toggleBlocks();
 }
 
 function setEraseOff() {
     eraseMode = false;
     eraseBtn.textContent = "Erase Mode: Off";
     eraseBtn.style.backgroundColor = "lightcoral";
+    toggleBlocks();
 }
