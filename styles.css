@@ -30,15 +30,10 @@ button {
     width: 550.2px;
 }
 
-.single-block {
-    width: calc(550px / 16);
-    height: calc(550px / 16);
+.erase:hover {
+    background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-.single-block:hover {
+#container > div:hover {
     background-color: black;
-}
-
-.single-block.erase:hover {
-    background-color: gray;
 }
