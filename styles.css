@@ -58,12 +58,8 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     height: 550px;
-    width: 550.2px;
+    width: 550.5px;
 }
-
-/* .erase:hover {
-    background-color: transparent !important;
-} */
 
 .random:hover {
     background-color: var(--random-color) !important;

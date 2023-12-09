@@ -167,7 +167,7 @@ function createBlocksInSize(gridSize) {
         const insideDiv = document.createElement("div");
         insideDiv.style.boxSizing = "border-box";
         container.appendChild(insideDiv);
-        insideDiv.style.width = `calc(550px/${gridSize})`;
+        insideDiv.style.width = `calc(550.5px/${gridSize})`;
         insideDiv.style.height = `calc(550px/${gridSize})`;
     }
     sizeBtn.textContent = `Select size: ${gridSize}`;
