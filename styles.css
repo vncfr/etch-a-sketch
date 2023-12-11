@@ -59,6 +59,12 @@ button:hover {
     justify-content: center;
     height: 550px;
     width: 550.5px;
+    flex-shrink: 0;
+}
+
+.empty {
+    width: 246px;
+    background-color: lightgray;
 }
 
 .random:hover {
